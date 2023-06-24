@@ -10,12 +10,16 @@ namespace Тестовое_задание
     public class Report
     {
         private List<ReportRow> rows;
+        public DateTime CreationDate { get;}
+
+        public ICollection<ReportRow> ReportData => rows;
 
         public Report(ICollection<ReportRow> rows) 
         {
             // Тут можно не выкидывать ошибку, а создавать пустой отчет, если это необходимо
             if (rows == null || rows.Count == 0) throw new ArgumentNullException();
             this.rows = rows.ToList();
+            CreationDate = DateTime.Now;
         }
 
         private void Filter()

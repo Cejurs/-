@@ -57,6 +57,9 @@ namespace Тестовое_задание
                 MessageBox.Show(message,"Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            
+            ReportWindow reportWindow = new ReportWindow(report);
+            reportWindow.Show();
 
         }
 

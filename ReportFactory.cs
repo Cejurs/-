@@ -14,16 +14,15 @@ namespace Тестовое_задание
         private Dictionary<string, ReportRow> dictionary;
         private object resourseLocker = new object();
         private string errorMessage = string.Empty;
-
+        private bool hasError = false;
         public ReportFactory() 
         { 
             dictionary = new Dictionary<string, ReportRow>();
         }
 
   
-        private bool HandleRKKFile(string RKKFilePath)
+        private void HandleRKKFile(string RKKFilePath)
         {
-            var isSuccess = true;
             StreamReader? fileStream = null;
             try
             {
@@ -50,19 +49,16 @@ namespace Тестовое_задание
             catch (Exception ex)
             {
                 errorMessage += $"Файл с РКК: {RKKFilePath} \n" + ex.Message +"\n";
-                isSuccess = false;
+                hasError = true;
             }
             finally
             {
                 fileStream?.Close();
             }
-
-            return isSuccess;
         }
  
-        private bool HandleRequestFile(string requestFilePath)
+        private void HandleRequestFile(string requestFilePath)
         {
-            var isSuccess = true;
             StreamReader? fileStream = null;
             try
             {
@@ -89,13 +85,12 @@ namespace Тестовое_задание
             catch (Exception ex)
             {
                 errorMessage = $"Файл с обращениями: {requestFilePath} \n"+ex.Message + "\n";
-                isSuccess = false;
+                hasError = true;
             }
             finally
             {
                 fileStream?.Close();
             }
-            return isSuccess;
         }
 
         /// <summary>
@@ -106,15 +101,24 @@ namespace Тестовое_задание
         /// <param name="report">Отчет, если все прошло успешно или null</param>
         /// <param name="errorMessage"></param>
         /// <returns>Результат создание успех/неудача</returns>
-        public  bool CreateReport(string RKKFilePath,string requestFilePath,out Report? report,out string? errorMessage)
+        public  bool CreateReport(string RKKFilePath,string requestFilePath,out Report? report,out string? error)
         {
+            error = null;
             report = null;
-            errorMessage = null;
             Task handleRKK = Task.Run(()=>HandleRKKFile(RKKFilePath));
             Task handleRequest = Task.Run(()=>HandleRequestFile(requestFilePath));
 
             Task.WaitAll(handleRKK,handleRequest);
-
+            if (dictionary.Values.Count == 0)
+            {
+                hasError = true;
+                errorMessage += "В файлах нет данных";
+            }
+            if (hasError)
+            {
+                error = errorMessage;
+                return false;
+            }
             report = new Report(dictionary.Values);
             return true;
         }
