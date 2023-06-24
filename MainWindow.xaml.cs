@@ -1,0 +1,76 @@
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Тестовое_задание
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private string RKKTextDefault = "Выберете файл RKK";
+        private string requestTextDefault = "Выберете файл с обращениями";
+        public MainWindow()
+        {
+            InitializeComponent();
+            RKKText.Text = RKKTextDefault;
+            RequestText.Text = requestTextDefault;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var rkkFilePath = RKKText.Text;
+            var requestFilePath = RequestText.Text;
+
+            if(rkkFilePath == RKKTextDefault&&requestFilePath == requestTextDefault)
+            {
+                MessageBox.Show("Пути до файлов не выбраны!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if(rkkFilePath == requestFilePath)
+            {
+                MessageBox.Show("Указанные пути совпадают!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var factory = new ReportFactory();
+            string? message;
+            Report? report;
+            var result = factory.CreateReport(rkkFilePath, requestFilePath, out report,out message);
+
+            if(result == false)
+            {
+                MessageBox.Show(message,"Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+        }
+
+        private void FileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var buttonName = (sender as Button).Name;
+            var openFileDialog = new OpenFileDialog();
+            var result = openFileDialog.ShowDialog();
+
+            if (result != true) return;
+
+            TextBlock selectedTextBox = (TextBlock)this.FindName(buttonName + "Text");
+
+            selectedTextBox.Text = openFileDialog.FileName;
+        }
+    }
+}
