@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Тестовое_задание.Export;
 
 namespace Тестовое_задание
 {
@@ -25,16 +16,40 @@ namespace Тестовое_задание
         {
             InitializeComponent();
             this.report = report;
+            ExportMenu.ItemsSource = ExportService.GetExportVariants();
             UpdateGrid();
         }
 
         private void UpdateGrid()
         {
-            ReportDataGrid.ItemsSource = this.report.ReportData;
+            var count = 0;
+            ReportDataGrid.ItemsSource = report.ReportData.Select(x => new
+            {
+                RowId = count++,
+                x.ResponsiblePerson,
+                x.UnfullfilledRequestCount,
+                x.UnfullfiledDocumentCount,
+                x.SummaryUnfullfiledCount
+            });
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
 
+        private void ExportMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var exportVariant = (e.OriginalSource as MenuItem)?.DataContext.ToString();
+            if(exportVariant == null)
+            {
+                MessageBox.Show("Что-то пошло не так, если ты видишь это сообщение ты волшебник");
+                return;
+            }
+            string message;
+            ExportService.Export(exportVariant, report, out message);
         }
     }
 }

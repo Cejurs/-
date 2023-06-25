@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Тестовое_задание"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

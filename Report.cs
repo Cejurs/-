@@ -13,6 +13,9 @@ namespace Тестовое_задание
         public DateTime CreationDate { get;}
 
         public ICollection<ReportRow> ReportData => rows;
+        public int UnfullfilledDocumentCount {  get => rows.Sum(x=>x.UnfullfiledDocumentCount) ;}
+        public int UnfullfilledRequestCount { get => rows.Sum(x => x.UnfullfilledRequestCount); }
+        public int UnfullfilledCount { get => UnfullfilledDocumentCount + UnfullfilledRequestCount; }
 
         public Report(ICollection<ReportRow> rows) 
         {

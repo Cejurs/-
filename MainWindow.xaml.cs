@@ -52,7 +52,7 @@ namespace Тестовое_задание
             Report? report;
             var result = factory.CreateReport(rkkFilePath, requestFilePath, out report,out message);
 
-            if(result == false)
+            if(result == false || report == null)
             {
                 MessageBox.Show(message,"Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -62,7 +62,13 @@ namespace Тестовое_задание
             reportWindow.Show();
 
         }
-
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
         private void FileButton_Click(object sender, RoutedEventArgs e)
         {
             var buttonName = (sender as Button).Name;

@@ -4,87 +4,114 @@
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Тестовое_задание.ReportWindow"
         Title="ReportWindow" Height="720" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None"
         AllowsTransparency ="True" Background="Transparent">
-    
+
     <Border Background="#eff2f2" CornerRadius="30" MouseDown="Border_MouseDown" >
-        <DataGrid x:Name="ReportDataGrid" Grid.Row="5"  Margin="50,100,50,50" AutoGenerateColumns="False">
-   
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="№ п.п." IsReadOnly="True" CanUserResize="False" CanUserSort="False" Width="50">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="1"></TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn CanUserResize="False" IsReadOnly="True"  CanUserSort="False" CanUserReorder="False" Width="415" Binding="{Binding Path=ResponsiblePerson}" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight"  Value="Bold" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="Height" Value="60" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Width="415" TextAlignment="Center" Text="Ответсвенный исполнитель" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn CanUserResize="False" CanUserReorder="False" CanUserSort="False" IsReadOnly="True" Width="170" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight"  Value="Bold" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="Height" Value="60" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Width="160" TextAlignment="Center" Text="Количество неисполненных входящих документов" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Width="170" CanUserResize="False" CanUserReorder="False" CanUserSort="False" IsReadOnly="True" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight"  Value="Bold" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="Height" Value="60" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Width="160" TextAlignment="Center" Text="Количество неисполненных письменных обращений граждан" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Width="170" CanUserResize="False" IsReadOnly="True" CanUserSort="False"  CanUserReorder="False" Binding="{Binding Path=SummaryUnfullfiledCount}">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight"  Value="Bold" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="Height" Value="60" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Width="160" TextAlignment="Center" Text="Общее количество документов и обращений" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid>
+            <Label Content="Отчет" FontSize="32" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="50,10,0,0" FontWeight="Bold"/>
+            <Menu Margin="846,49,150,645">
+                <MenuItem Header="Фильтровать">
+                    <MenuItem Header="Open"/>
+                    <MenuItem Header="Close"/>
+                </MenuItem>
+            </Menu>
+            <Menu Margin="935,49,44,645">
+                <MenuItem x:Name="ExportMenu" Header="Экспортировать" Click="ExportMenu_Click">
+                </MenuItem>
+            </Menu>
+            <DataGrid x:Name="ReportDataGrid" Grid.Row="5"  Margin="50,100,50,50" AutoGenerateColumns="False">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" CanUserSort="False" Width="50" Binding="{Binding Path=RowId}" >
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight"  Value="Bold" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Width="40" TextAlignment="Center" Text="№ п.п" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn CanUserResize="False"  IsReadOnly="True"  CanUserSort="False" CanUserReorder="False" Width="410" Binding="{Binding Path=ResponsiblePerson}" >
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight"  Value="Bold" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Width="405" TextAlignment="Center" Text="Ответсвенный исполнитель" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn CanUserResize="False" CanUserReorder="False" CanUserSort="False" IsReadOnly="True" Width="170" Binding="{Binding Path=UnfullfiledDocumentCount}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight"  Value="Bold" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Width="160" TextAlignment="Center" Text="Количество неисполненных входящих документов" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="160" CanUserResize="False" CanUserReorder="False" CanUserSort="False" IsReadOnly="True" Binding="{Binding Path=UnfullfilledRequestCount}" >
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight"  Value="Bold" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Width="150" TextAlignment="Center" Text="Количество неисполненных письменных обращений граждан" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="160" CanUserResize="False" IsReadOnly="True" CanUserSort="False"  CanUserReorder="False" Binding="{Binding Path=SummaryUnfullfiledCount}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight"  Value="Bold" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Width="150" TextAlignment="Center" Text="Общее количество документов и обращений" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
     </Border>
 </Window>
