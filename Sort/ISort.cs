@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace Тестовое_задание.Filters
 {
+    // Интерфейс для сортировок
     public interface ISort
     {
         // Указывает, по какому признаку сортируется.

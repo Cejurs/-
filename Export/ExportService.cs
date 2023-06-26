@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Documents;
 
 namespace Тестовое_задание.Export
 {
+    /// <summary>
+    /// Класс инкапсулиюрущий возможности экспорта
+    /// </summary>
     public static class ExportService
     {
         public static ICollection<string> GetExportVariants()

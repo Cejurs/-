@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Тестовое_задание
 {
+    // Струтурная единица отчета - строка в табличке
     public class ReportRow
     {
         // Ответственное лицо

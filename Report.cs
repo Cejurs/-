@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using Тестовое_задание.Filters;
 using Тестовое_задание.Sort;
 
