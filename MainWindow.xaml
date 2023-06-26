@@ -6,6 +6,7 @@
         AllowsTransparency ="True" Background="Transparent">
     <Border Background="#eff2f2" CornerRadius="30" MouseDown="Border_MouseDown">
         <Grid>
+            <Button Margin="328,10,19,268" Background="Transparent" BorderThickness="0" Foreground="#FFF71B1B" Click="ExitButtonClick">X</Button>
             <Button  BorderThickness="2,2,2,2" 
                      SnapsToDevicePixels="True" 
                      Background="#FF3758FA" 
@@ -21,17 +22,16 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <TextBlock FontSize="20" Margin="35 10 35 260" HorizontalAlignment="Left"  FontWeight="Bold"><Run Text="Выберете файлы для расчетов"/></TextBlock>
-            <TextBlock x:Name="RKKText"  Margin="16,97,0,0"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" 
-                   ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                   ScrollViewer.CanContentScroll="True"
-                   TextWrapping="Wrap" FontSize="16" Width="252" Height="30" MaxHeight="21.28"/>
-            <TextBlock x:Name="RequestText"  Margin="16,152,0,0"
-                   ScrollViewer.HorizontalScrollBarVisibility="Visible" Height="30"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Width="252"/>
+            <TextBlock FontSize="20" Margin="16,10,0,260" HorizontalAlignment="Left"  FontWeight="Bold"><Run Text="Выберете файлы для расчетов"/></TextBlock>
+            <TextBlock x:Name="RKKText"  Margin="16,59,0,0"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   TextWrapping="Wrap" FontSize="16" Width="252" Height="63"/>
+            <TextBlock x:Name="RequestText"  Margin="16,133,0,0"
+                   Height="63"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Width="252"
+                   TextWrapping="Wrap"/>
             <Button  Background="#FF3758FA" Content="Выбрать" HorizontalAlignment="Left"
-                x:Name="RKK"  Margin="290,93,0,0"  Width="75" Height="33" VerticalAlignment="Top" Click="FileButton_Click">
+                x:Name="RKK"  Margin="290,53,0,0"  Width="75" Height="33" VerticalAlignment="Top" Click="FileButton_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -39,13 +39,14 @@
                 </Button.Resources>
             </Button>
             <Button Background="#FF3758FA" Content="Выбрать" HorizontalAlignment="Left"
-            x:Name="Request"  Margin="290,150,0,0" Width="75" Height="33" VerticalAlignment="Top" Click="FileButton_Click">
+            x:Name="Request"  Margin="290,0,0,0" Width="75" Height="32" VerticalAlignment="Center" Click="FileButton_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
+            <Label x:Name="TimeLabel" Content="Время выполнения: " HorizontalAlignment="Left" Margin="26,201,0,0" VerticalAlignment="Top" Width="162"/>
         </Grid>
     </Border>
 </Window>

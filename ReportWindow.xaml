@@ -10,10 +10,8 @@
             <Label Content="Отчет" FontSize="32" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" Margin="50,10,0,0" FontWeight="Bold"/>
-            <Menu Margin="846,49,150,645">
-                <MenuItem Header="Фильтровать">
-                    <MenuItem Header="Open"/>
-                    <MenuItem Header="Close"/>
+            <Menu  Margin="846,49,150,645">
+                <MenuItem x:Name="SortMenu" Header="Сортировать" Click="SortMenuItem_Click">
                 </MenuItem>
             </Menu>
             <Menu Margin="935,49,44,645">
@@ -111,6 +109,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Margin="1031,10,21,688" Background="Transparent" BorderThickness="0" Foreground="#FFF71B1B" Click="ExitButtonClick" Content="X"/>
         </Grid>
 
     </Border>

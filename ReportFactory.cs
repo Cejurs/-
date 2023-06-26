@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Shapes;
 
 namespace Тестовое_задание
 {
@@ -20,7 +17,16 @@ namespace Тестовое_задание
             dictionary = new Dictionary<string, ReportRow>();
         }
 
-  
+        private string UnificatePersonName(string personName)
+        {
+            var array = personName.Split(' ','.');
+            var lastName = array[0];
+            var firstNameLetter = array[1]?[0].ToString();
+            var patronomicNameLatter = array[2]?[0].ToString();
+            var result = lastName + " " + firstNameLetter + ". "+ patronomicNameLatter +".";
+            return result;
+        }
+
         private void HandleRKKFile(string RKKFilePath)
         {
             StreamReader? fileStream = null;
@@ -32,18 +38,23 @@ namespace Тестовое_задание
                 {
                     var array = line.Split('\t');
                     if (array.Length == 0) continue;
+
+                    var chief = array[0].Trim();
+
                     if (array.Length == 1)
                     {
-                        IncreaseUnfullfilledDocumentCount(array[0]);
+                        IncreaseUnfullfilledDocumentCount(UnificatePersonName(chief));
                         continue;
                     }
 
-                    var responsiblePersons = array[1].Split(';');
-                    foreach (var responiblePerson in responsiblePersons)
+                    if(chief == "Климов Сергей Александрович")
                     {
-                        var person = responiblePerson.Replace("(Отв.)", "").Trim();
-                        IncreaseUnfullfilledDocumentCount(person);
+                        var responsiblePerson = UnificatePersonName(array[1].Split(';')[0].Replace("(Отв.)", "").Trim());
+                        IncreaseUnfullfilledDocumentCount(responsiblePerson);
+                        continue;
                     }
+
+                    IncreaseUnfullfilledDocumentCount(UnificatePersonName(chief));
                 }
             }
             catch (Exception ex)
@@ -68,18 +79,21 @@ namespace Тестовое_задание
                 {
                     var array = line.Split('\t');
                     if (array.Length == 0) continue;
+                    var chief = array[0].Trim();
+                    // Если нет 2 столбца добавляем руководителя в любом случае
                     if (array.Length == 1)
                     {
-                        IncreaseUnfullfiledRequestCount(array[0]);
+                        IncreaseUnfullfiledRequestCount(UnificatePersonName(chief));
+                        continue;
+                    }
+                    if(chief == "Климов Сергей Александрович")
+                    {
+                        var responsiblePerson = UnificatePersonName(array[1].Split(';')[0].Replace("(Отв.)", "").Trim());
+                        IncreaseUnfullfiledRequestCount(responsiblePerson);
                         continue;
                     }
 
-                    var responsiblePersons = array[1].Split(';');
-                    foreach(var responiblePerson  in responsiblePersons)
-                    {
-                        var person = responiblePerson.Replace("(Отв.)","").Trim();
-                        IncreaseUnfullfiledRequestCount(person);
-                    }
+                    IncreaseUnfullfiledRequestCount(UnificatePersonName(chief));
                 }
             }
             catch (Exception ex)

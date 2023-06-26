@@ -6,13 +6,13 @@ using System.Windows.Controls;
 
 namespace Тестовое_задание.Export
 {
+    // Экспортирует отчет в формат html, можно получить pdf через печать.
     public class HtmlExport : IExport
     {
         StringBuilder htmlBuilder = new StringBuilder();
         public bool Export(Report report, out string message)
         {
             message = string.Empty;
-
             #region html_head_style
             htmlBuilder.AppendLine("<!DOCTYPE html>");
             htmlBuilder.AppendLine("<head><meta charset=\"UTF-8\">");
@@ -32,6 +32,7 @@ namespace Тестовое_задание.Export
             htmlBuilder.AppendLine("</style>\r\n</head>");
             #endregion
 
+            var tableRowCount = 20;
             htmlBuilder.AppendLine("<body style=\"--bleeding: 0.5cm;--margin: 1cm;\">");
             htmlBuilder.AppendLine("<div class=\"page\">");
             htmlBuilder.AppendLine("<h3 class=\"header\">Справка о неисполненных документах и обращениях граждан</h3>");
@@ -40,6 +41,7 @@ namespace Тестовое_задание.Export
             htmlBuilder.AppendLine($"<li>количество неисполненных входящих документов: <strong>{report.UnfullfilledDocumentCount}</strong>;</li>");
             htmlBuilder.AppendLine($"<li>количество неисполненных письменных обращений граждан: <strong>{report.UnfullfilledRequestCount}</strong>.</li>");
             htmlBuilder.AppendLine("</ul>");
+            htmlBuilder.AppendLine($"<p>Сортировка: {report.SortType}</p>");
 
             TableHeader();
 
@@ -49,14 +51,18 @@ namespace Тестовое_задание.Export
                 var datarow = data[i];
                 htmlBuilder.AppendLine($"<tr><td>{i + 1}</td><td>{datarow.ResponsiblePerson}<td>{datarow.UnfullfiledDocumentCount}</td>");
                 htmlBuilder.AppendLine($"<td>{datarow.UnfullfilledRequestCount}</td><td>{datarow.SummaryUnfullfiledCount}</td></tr>");
-                if (i == 20)
+                if (i == tableRowCount)
                 {
+                    tableRowCount += 25;
                     htmlBuilder.AppendLine("</table>");
                     htmlBuilder.AppendLine("</div>");
                     htmlBuilder.AppendLine("<div class=\"page\">");
                     TableHeader();
                 }
             }
+            htmlBuilder.AppendLine("</table>");
+            htmlBuilder.AppendLine($"<p>Дата составления справки: {report.CreationDate}</p>");
+            htmlBuilder.AppendLine("</div>");
 
             var html = htmlBuilder.ToString();
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

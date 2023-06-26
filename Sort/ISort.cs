@@ -7,8 +7,10 @@ using System.Windows.Media;
 
 namespace Тестовое_задание.Filters
 {
-    interface IFilter
+    public interface ISort
     {
-        string Name { get; }
+        // Указывает, по какому признаку сортируется.
+        public string Type { get; }
+        public Comparison<ReportRow> Comparison { get; }
     }
 }

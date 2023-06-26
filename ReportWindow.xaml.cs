@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Тестовое_задание.Export;
+using Тестовое_задание.Sort;
 
 namespace Тестовое_задание
 {
@@ -17,6 +18,7 @@ namespace Тестовое_задание
             InitializeComponent();
             this.report = report;
             ExportMenu.ItemsSource = ExportService.GetExportVariants();
+            SortMenu.ItemsSource = SortService.GetSortVariants();
             UpdateGrid();
         }
 
@@ -25,7 +27,7 @@ namespace Тестовое_задание
             var count = 0;
             ReportDataGrid.ItemsSource = report.ReportData.Select(x => new
             {
-                RowId = count++,
+                RowId = ++count,
                 x.ResponsiblePerson,
                 x.UnfullfilledRequestCount,
                 x.UnfullfiledDocumentCount,
@@ -50,6 +52,24 @@ namespace Тестовое_задание
             }
             string message;
             ExportService.Export(exportVariant, report, out message);
+            MessageBox.Show(message,"Экспорт",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+
+        private void SortMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var sortVariant = (e.OriginalSource as MenuItem)?.DataContext.ToString();
+            if (sortVariant == null)
+            {
+                MessageBox.Show("Что-то пошло не так, если ты видишь это сообщение ты волшебник");
+                return;
+            }
+            var sort = SortService.GetSort(sortVariant);
+            report.Sort(sort);
+            UpdateGrid();
+        }
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Тестовое_задание
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ReportWindow reportWindow = null;
         private string RKKTextDefault = "Выберете файл RKK";
         private string requestTextDefault = "Выберете файл с обращениями";
         public MainWindow()
@@ -46,7 +48,8 @@ namespace Тестовое_задание
                 MessageBox.Show("Указанные пути совпадают!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            var sw = new Stopwatch();
+            sw.Start();
             var factory = new ReportFactory();
             string? message;
             Report? report;
@@ -57,9 +60,12 @@ namespace Тестовое_задание
                 MessageBox.Show(message,"Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
-            ReportWindow reportWindow = new ReportWindow(report);
+            if (reportWindow != null) reportWindow.Close();
+            reportWindow = new ReportWindow(report);
             reportWindow.Show();
+            sw.Stop();
+
+            TimeLabel.Content += sw.ElapsedMilliseconds.ToString() + " ms";
 
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -80,6 +86,11 @@ namespace Тестовое_задание
             TextBlock selectedTextBox = (TextBlock)this.FindName(buttonName + "Text");
 
             selectedTextBox.Text = openFileDialog.FileName;
+        }
+
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

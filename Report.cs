@@ -4,12 +4,15 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using Тестовое_задание.Filters;
+using Тестовое_задание.Sort;
 
 namespace Тестовое_задание
 {
     public class Report
     {
         private List<ReportRow> rows;
+        public string SortType { get; private set; } = string.Empty;
         public DateTime CreationDate { get;}
 
         public ICollection<ReportRow> ReportData => rows;
@@ -23,11 +26,13 @@ namespace Тестовое_задание
             if (rows == null || rows.Count == 0) throw new ArgumentNullException();
             this.rows = rows.ToList();
             CreationDate = DateTime.Now;
+            Sort(SortService.DefaultSort);
         }
 
-        private void Filter()
+        public void Sort(ISort comparison)
         {
-            rows.OrderBy(x=> x.ResponsiblePerson).ToList();
+            SortType = comparison.Type;
+            rows.Sort(comparison.Comparison);
         }
     }
 }
