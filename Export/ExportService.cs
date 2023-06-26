@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Тестовое_задание.Export
 {
     /// <summary>
-    /// Класс инкапсулиюрущий возможности экспорта
+    /// Класс для работы с экпортами.
     /// </summary>
     public static class ExportService
     {

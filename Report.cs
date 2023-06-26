@@ -6,6 +6,9 @@ using Тестовое_задание.Sort;
 
 namespace Тестовое_задание
 {
+    /// <summary>
+    /// Отчет
+    /// </summary>
     public class Report
     {
         private List<ReportRow> rows;

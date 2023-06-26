@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace Тестовое_задание
 {
-    // Фабрика по созданию отчета
+    /// <summary>
+    /// Фабрика по созданию отчетов
+    /// </summary>
     public class ReportFactory
     {
         // Словарь: ключ - ответсвенное лицо.
