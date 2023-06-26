@@ -62,7 +62,7 @@ namespace Тестовое_задание
             }
             catch (Exception ex)
             {
-                errorMessage += $"Файл с РКК: {RKKFilePath} \n" + ex.Message +"\n";
+                errorMessage += $"Файл с РКК: {RKKFilePath} \n" + "Ошибка в обработке файла, проверьте правильность формата вводимых данных, либо правильность выбранного файла" +"\n";
                 hasError = true;
             }
             finally
@@ -101,7 +101,7 @@ namespace Тестовое_задание
             }
             catch (Exception ex)
             {
-                errorMessage = $"Файл с обращениями: {requestFilePath} \n"+ex.Message + "\n";
+                errorMessage = $"Файл с обращениями: {requestFilePath} \n"+ "Ошибка в обработке файла, проверьте правильность формата вводимых данных, либо правильность выбранного файла" + "\n";
                 hasError = true;
             }
             finally

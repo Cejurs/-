@@ -37,7 +37,7 @@ namespace Тестовое_задание
             var rkkFilePath = RKKText.Text;
             var requestFilePath = RequestText.Text;
 
-            if(rkkFilePath == RKKTextDefault&&requestFilePath == requestTextDefault)
+            if(rkkFilePath == RKKTextDefault || requestFilePath == requestTextDefault)
             {
                 MessageBox.Show("Пути до файлов не выбраны!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
